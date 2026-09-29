@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gym, Savings & Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Header Navigasi Waktu Utama -->
+    <header class="date-header">
+      <div class="month-selector">
+        <button id="prevMonthBtn" class="nav-btn"><i class="fa-solid fa-chevron-left"></i></button>
+        <h2 id="currentMonthYear">September 2026</h2>
+        <button id="nextMonthBtn" class="nav-btn"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+      <p class="subtitle">Kelola Rutinitas, Tabungan, Pengeluaran, Piutang Cust, & Kalender</p>
+    </header>
+
+    <!-- Grid Konten Utama -->
+    <main class="main-content">
+      
+      <!-- KARTU 1: GYM ROUTINE -->
+      <section class="card gym-card">
+        <div class="card-header">
+          <h3><i class="fa-solid fa-dumbbell"></i> Jadwal Rutinitas Gym</h3>
+          <span class="badge" id="gymProgressBadge">0/0 Selesai</span>
+        </div>
+
+        <form id="gymForm" class="input-form">
+          <input type="text" id="gymInput" placeholder="Contoh: Push Day / Chest & Triceps" required>
+          <select id="gymDaySelect">
+            <option value="Senin">Senin</option>
+            <option value="Selasa">Selasa</option>
+            <option value="Rabu">Rabu</option>
+            <option value="Kamis">Kamis</option>
+            <option value="Jumat">Jumat</option>
+            <option value="Sabtu">Sabtu</option>
+            <option value="Minggu">Minggu</option>
+          </select>
+          <button type="submit"><i class="fa-solid fa-plus"></i> Tambah</button>
+        </form>
+
+        <ul id="gymList" class="todo-list"></ul>
+      </section>
+
+      <!-- KARTU 2: SAVINGS TRACKER -->
+      <section class="card savings-card">
+        <div class="card-header">
+          <h3><i class="fa-solid fa-piggy-bank"></i> Tabungan Mahasiswa</h3>
+          <button id="setTargetBtn" class="icon-btn" title="Ubah Target"><i class="fa-solid fa-pen-to-square"></i></button>
+        </div>
+
+        <div class="savings-summary">
+          <div class="summary-item">
+            <span>Terkumpul</span>
+            <h4 id="totalSavedText">Rp 0</h4>
+          </div>
+          <div class="summary-item">
+            <span>Target Bulan Ini</span>
+            <h4 id="targetSavingsText">Rp 300.000</h4>
+          </div>
+        </div>
+
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <small id="progressPercentage" class="progress-text">0% dari target tercapai</small>
+
+        <form id="savingsForm" class="input-form">
+          <input type="number" id="savingsAmount" placeholder="Nominal (contoh: 10000)" required min="500">
+          <input type="text" id="savingsNote" placeholder="Catatan (misal: Sisa uang saku)" required>
+          <button type="submit" class="btn-success"><i class="fa-solid fa-coins"></i> Nabung</button>
+        </form>
+
+        <div class="history-title">Riwayat Bulan Ini</div>
+        <ul id="savingsList" class="history-list"></ul>
+      </section>
+
+      <!-- KARTU BARU: PENGELUARAN BULANAN -->
+      <section class="card expense-card">
+        <div class="card-header">
+          <h3><i class="fa-solid fa-wallet"></i> Pengeluaran Bulanan</h3>
+          <div class="summary-item text-right">
+            <span>Total Pengeluaran</span>
+            <h4 id="totalExpenseText" class="expense-total">Rp 0</h4>
+          </div>
+        </div>
+
+        <form id="expenseForm" class="input-form">
+          <input type="number" id="expenseAmountInput" placeholder="Nominal (misal: 15000)" required min="500">
+          <input type="text" id="expenseNoteInput" placeholder="Keterangan (misal: Beli Kopi)" required>
+          <button type="submit" class="btn-danger"><i class="fa-solid fa-receipt"></i> Catat</button>
+        </form>
+
+        <div class="history-title">Riwayat Pengeluaran Bulan Ini</div>
+        <ul id="expenseList" class="expense-list"></ul>
+      </section>
+
+      <!-- KARTU 3: CATATAN PIUTANG CUST -->
+      <section class="card cust-card">
+        <div class="card-header">
+          <h3><i class="fa-solid fa-hand-holding-dollar"></i> Catatan Piutang Cust</h3>
+          <div class="summary-item text-right">
+            <span>Total Belum Dibayar</span>
+            <h4 id="totalCustDeptText" class="debt-total">Rp 0</h4>
+          </div>
+        </div>
+
+        <form id="custForm" class="input-form">
+          <input type="text" id="custNameInput" placeholder="Nama Cust (misal: Budi)" required>
+          <input type="number" id="custAmountInput" placeholder="Nominal (misal: 50000)" required min="1000">
+          <input type="text" id="custNoteInput" placeholder="Keterangan (misal: Bayar makan dulu)">
+          <button type="submit" class="btn-warning"><i class="fa-solid fa-user-plus"></i> Catat Pinjaman</button>
+        </form>
+
+        <div class="history-title">Daftar Belum Lunas</div>
+        <ul id="custList" class="cust-list"></ul>
+      </section>
+
+      <!-- KARTU 4: KALENDER CHECKLIST -->
+      <section class="card calendar-card">
+        <div class="card-header">
+          <h3><i class="fa-solid fa-calendar-check"></i> Kalender Presensi & Checklist</h3>
+          <span class="badge calendar-badge" id="calendarCheckCount">0 Hari Ter-checklist</span>
+        </div>
+        
+        <!-- Judul Bulan & Tahun Khusus Kalender -->
+        <div class="calendar-title-bar">
+          <h4 id="calendarMonthYearText">September 2026</h4>
+        </div>
+
+        <!-- Grid Nama Hari -->
+        <div class="calendar-days-header">
+          <div>Min</div>
+          <div>Sen</div>
+          <div>Sel</div>
+          <div>Rab</div>
+          <div>Kam</div>
+          <div>Jum</div>
+          <div>Sab</div>
+        </div>
+
+        <!-- Grid Tanggal Dinamis -->
+        <div id="calendarGrid" class="calendar-grid"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
